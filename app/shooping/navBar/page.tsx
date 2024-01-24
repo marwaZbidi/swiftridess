@@ -76,15 +76,7 @@ const ProfileDropDown: React.FC<ProfileDropDownProps> = (props) => {
         <div className={`relative ${props.class}`}  >
             {!userId? "":
             <div className="flex items-center space-x-4">
-                <button ref={profileRef} className="w-10 h-10 outline-none rounded-full ring-offset-2 ring-gray-200 ring-2 lg:focus:ring-indigo-600 -mt-8"
-                    onClick={() => setState(!state)}
-                >
-                    {!userId?"":<img
-                        src="https://static.vecteezy.com/system/resources/previews/020/765/399/non_2x/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg"
-                        className="w-full h-full rounded-full"
-                        alt="Profile"
-                    />}
-                </button>
+                
                 <div className="lg:hidden">
                     <span className="block">Micheal John</span>
                     <span className="block text-sm text-black">john@gmail.com</span>
@@ -114,7 +106,6 @@ const Navigation: React.FC = () => {
 
     const navigation: MenuItem[] = [
         { title: "Home", path: "/Home" },
-        { title: "Sign", path: "/UserLogin/Login" },
     ];
 
   return (
@@ -144,7 +135,6 @@ const Navigation: React.FC = () => {
                                 ))
                             }
                         </ul>
-                        <button onClick={() => window.scrollTo({ top: 1800, behavior: "smooth" })} className="whyusb"> Why Us</button>
                         <ProfileDropDown 
                             class="mt-5 pt-5 border-t lg:hidden"
                         />
