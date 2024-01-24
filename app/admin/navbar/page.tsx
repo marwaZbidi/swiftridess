@@ -1,51 +1,46 @@
 "use client"
-import React,{useRef,useState,useEffect} from "react"
-import CircleNotificationsIcon from '@mui/icons-material/CircleNotifications';
-
+import React from "react" 
 import ChatIcon from '@mui/icons-material/Chat';
 import "./search.module.css"
 
 
-interface Menu {
-    title: string;
-    
-  }
+
 
 
 const navbar :React.FC =()=>{
-    const [state, setState] = useState(false);
-    const profileRef = useRef<HTMLButtonElement>(null);
+    // const [state, setState] = useState(false);
+    // const profileRef = useRef<HTMLButtonElement>(null);
 
   
 
 
 
-    useEffect(() => {
-        const handleDropDown = (e: MouseEvent) => {
-            if (profileRef.current && !profileRef.current.contains(e.target as Node)) {
-                setState(false);
-            }
-        };
-        document.addEventListener('click', handleDropDown);
-        return () => {
-            document.removeEventListener('click', handleDropDown);
-        };
-    }, []);
+    // useEffect(() => {
+    //     const handleDropDown = (e: MouseEvent) => {
+    //         if (profileRef.current && !profileRef.current.contains(e.target as Node)) {
+    //             setState(false);
+    //         }
+    //     };
+    //     document.addEventListener('click', handleDropDown);
+    //     return () => {
+    //         document.removeEventListener('click', handleDropDown);
+    //     };
+    // }, []);
     
-  const navigation: Menu[] = [
-    {
-       title: "Houssem wrote feedback"
-  },
-  {
-    title:"mouhib sent an email to Company's name"
-  },
-  {
-    title:"marwa updated her account"
-  },
-  {
-    title:"Company's name respond to email's mouhib"
-  }
-];
+//   const navigation: Menu[] = [
+//     {
+//        title: "Houssem wrote feedback"
+//   },
+//   {
+//     title:"mouhib sent an email to Company's name"
+//   },
+//   {
+//     title:"marwa updated her account"
+//   },
+//   {
+//     title:"Company's name respond to email's mouhib"
+//   }
+// ];
 
 
 
@@ -55,12 +50,12 @@ const navbar :React.FC =()=>{
       <div className="search-box flex items-center">
  
     <button><ChatIcon className="ml-2 mr-[14px]"   style={{ fontSize: '40px' }}/></button>
-    <button ref={profileRef} onClick={() => setState(!state)}> <CircleNotificationsIcon className="ml-2" style={{ fontSize: '50px' }} />
+    {/* <button ref={profileRef} onClick={() => setState(!state)}> <CircleNotificationsIcon className="ml-2" style={{ fontSize: '50px' }} />
   
-    </button>       
+    </button>        */}
 
   </div>
-  <ul className={`bg-white top-12 right-0 mt-5 space-y-5 lg:absolute lg:border lg:rounded-md lg:text-sm lg:w-52 lg:shadow-md lg:space-y-0 lg:mt-0 ${state ? '' : 'lg:hidden'}`}>
+  {/* <ul className={`bg-white top-12 right-0 mt-5 space-y-5 lg:absolute lg:border lg:rounded-md lg:text-sm lg:w-52 lg:shadow-md lg:space-y-0 lg:mt-0 ${state ? '' : 'lg:hidden'}`}>
                 {   
                     navigation.map((item, idx) => (
                         <li key={idx}>
@@ -70,7 +65,7 @@ const navbar :React.FC =()=>{
                         </li>
                     ))
                 }
-            </ul>
+            </ul> */}
   
 </nav> 
         </div>

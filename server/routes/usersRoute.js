@@ -19,7 +19,7 @@ router.put('/users/:id', UserController.updateUserById);
 // DELETE a user by ID
 router.delete('/users/:id', UserController.deleteUserById);
 
-
+router.get('/users/events/:name', reservationController.getEvents)
 router.get('/company/car/:id', UserController.getCompanyInfoByCarId);
 
 router.get('/company/reservation/:idcompany', UserController.getReservationById);

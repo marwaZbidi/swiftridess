@@ -1,5 +1,5 @@
 "use client"
-import React,{useState,useRef,useEffect} from "react";
+import React from "react";
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
@@ -14,6 +14,7 @@ import { AreaChart, Area,BarChart, XAxis, YAxis, Bar, Tooltip, Legend} from "rec
 import { PieChart, Pie} from "recharts";
 import styles from"./feedback.module.css"
 
+import "../fix.css"
 
 const dashboard: React.FC  = () => {
   const mockTransactions = [
@@ -124,50 +125,51 @@ const dashboard: React.FC  = () => {
   const bar = [
     {
         name: "Jan",
-        update: 4000,
-        new : 2400
+        company: 4000,
+        client : 2400
     },
     {
         name: "Feb",
-        update: 5000,
-        new : 1500
+        company: 5000,
+        client : 1500
     },
     {
         name: "Mar",
-        update: 6000,
-        new : 3000
+        company: 6000,
+        client : 3000
     },
     {
         name: "Apr",
-        update: 6500,
-        new : 4500
+        company: 6500,
+        client : 4500
     },
     {
         name: "May",
-        update: 7000,
-        new : 2200
+        company: 7000,
+        client : 2200
     },
     {
         name: "Jun",
-        update: 8000,
-        new : 3500
+        company: 8000,
+        client : 3500
     },
     {
         name: "Jul",
-        update: 7400,
-        new : 5500
+        company: 7400,
+        client : 5500
     },
   ];
 
 
 
   return (
-    <div className="flex h-screen"> 
+    <div className=" h-screen "> 
+    <div className="">
    <Sidebar/>
-
+   </div>
       {/* Main Content */}
  
-      <div className="flex-1 bg-gray-100 p-4 ml-[300px]">
+      <div className="flex-1 bg-gray-100 p-4 ml-[300px] grid grid-col-2">
     
       <div><Navbar/></div>
       <Typography variant="h2" fontWeight="bold" style={{ color: '#000080' }}>
@@ -288,8 +290,8 @@ const dashboard: React.FC  = () => {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Bar dataKey="update" fill="#8b5cf6" />
-        <Bar dataKey="new" fill="#ddd6fe"/>
+        <Bar dataKey="company" fill="#8b5cf6" />
+        <Bar dataKey="client" fill="#ddd6fe"/>
       </BarChart>
 
   </div>

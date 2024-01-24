@@ -24,7 +24,7 @@ const PolarChart = () => {
       chartInstanceRef.current = new Chart(myChartRef, {
         type: 'polarArea',
         data: {
-          labels: ['Label 1', 'Label 2', 'Label 3', 'Label 4', 'Label 5'],
+          labels: ['BMW', 'VolksWagen', 'Cupra', 'Seat', 'Mini Cooper'],
           datasets: [
             {
               data: [11, 16, 7, 3, 14],
@@ -54,9 +54,9 @@ const PolarChart = () => {
   return (
     <div>
       <Sidebar />
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex items-center justify-center h-screen  ">
       
-      <canvas className="w-64 h-64" ref={chartRef}></canvas>
+      <canvas className=" fixed w-64 h-64" ref={chartRef}></canvas>
     </div>
     </div>
   );
