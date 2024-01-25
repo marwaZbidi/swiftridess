@@ -166,7 +166,7 @@ className="w-full h-full rounded-full" />:<img
             <ListItemIcon>
               <ChatIcon color="primary" className="hover:bg-gray-300 hover:bg-opacity-50"/>
             </ListItemIcon>
-            <Link href={'/admin/chat'} ><button > <ListItemText primary={show&&<p>Feedbacks</p>} /></button></Link>
+            <Link href={'/admin/feedback'} ><button > <ListItemText primary={show&&<p>Feedbacks</p>} /></button></Link>
           </ListItem>
 
           {/* <ListItem button>

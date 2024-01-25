@@ -25,9 +25,9 @@ router.get('/company/car/:id', UserController.getCompanyInfoByCarId);
 
 router.get('/company/reservation/:idcompany', UserController.getReservationById);
 
-router.get('/admin/reservation',UserController.getAllreservation);
+// router.get('/admin/reservation',UserController.getAllreservation);
 // router.get('/reservation',UserController.getAllReservationsWithDetails);
-
+// router.get('/admin/reservation',UserController.getAllNames);
 
 router.post('/company/reservation/:userid/:vehicleid', UserController.createReservation);
 
@@ -37,5 +37,10 @@ router.delete('/company/reservation/delete', UserController.deleteReservation);
 
 router.post('/company/reservationdate/:vehicleId', UserController.reserveVehicle);
 
+
+router.get('/user/feedback', UserController.getAllFeedBack);
+
+
+router.post('/user/feedback', UserController.createFeedback);
 
 module.exports = router;

@@ -5,7 +5,9 @@ import Sidebar from "../sidebar/page"
 import axios from 'axios';
 import RestoreFromTrashIcon from '@mui/icons-material/RestoreFromTrash';
 import SearchIcon from '@mui/icons-material/Search';
-
+import { Modal } from "react-responsive-modal";
+import Reservation from "../reservation/page"
+import 'react-responsive-modal/styles.css';
 interface Company {
   idcompany: number;
   companyName: string;
@@ -27,14 +29,14 @@ const company:React.FC =()=>{
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searched,setSearched]=useState<string>("");
-
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://localhost:3000/api/company/getAll');
-console.log(response.data);
+console.log("eee",response.data);
 
         setCompanyData(response.data);
       } catch (error) {
@@ -115,7 +117,7 @@ console.log(response.data);
 <div className="absolute -ml-[60px] mt-10 overflow-x-auto shadow-md sm:rounded-lg w-[1100px]">
     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
+            {/* <tr>
             <th scope="col" className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
             
                 </th>
@@ -146,7 +148,7 @@ console.log(response.data);
                     Verification
                 </th>
 
-            </tr>
+            </tr> */}
         </thead>
         <tbody>
         {companyData && companyData.map((e,i) => (
@@ -155,9 +157,16 @@ console.log(response.data);
                 <td scope="col" className="px-4 py-2">
                    {e.idcompany}
                 </td>
+        
+                <button onClick={()=>setModalOpen(true)}>
+                  
                 <td scope="row" className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-black">
                 {e.companyName}
                 </td>
+                </button>
+                <Modal open={modalOpen} onClose={() => setModalOpen(false)} center>       
+                  <Reservation idcompany={e.idcompany}/>
+                </Modal>
                 <td scope="row" className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-black">
                 {e.ownerName}
                 </td>
