@@ -298,30 +298,30 @@ return res.status(200).json(search)
   }
 }
 
-async function getEvents(req, res) {
-  try {
-    const fullName=req.params.name
-      const reservations = await Reservation.findAll({
-        where: {fullName: fullName},
-      });
+// async function getEvents(req, res) {
+//   try {
+//     const fullName=req.params.name
+//       const reservations = await Reservation.findAll({
+//         where: {fullName: fullName},
+//       });
 
-      const events = reservations.map((reservation) => ({
-      iduser: reservation.iduserValue,
-      idcar: reservation.idvehicleValue,
-      idcompany: reservation.idcompanyValue,
-      startDate: reservation.currentDate,
-      returnDate: reservation.returnDate,
-      }));
+//       const events = reservations.map((reservation) => ({
+//       iduser: reservation.iduserValue,
+//       idcar: reservation.idvehicleValue,
+//       idcompany: reservation.idcompanyValue,
+//       startDate: reservation.currentDate,
+//       returnDate: reservation.returnDate,
+//       }));
 
-      res.json(events);
-  } catch (error) {
-      console.error('Error fetching events ', error);
-      res.status(500).json({ error: 'Internal Server Error' });
-  }
-}
+//       res.json(events);
+//   } catch (error) {
+//       console.error('Error fetching events ', error);
+//       res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// }
 
 module.exports = {
-  getEvents,
+  // getEvents,
   searchByName,
   getAllUsers,
   getUserById,

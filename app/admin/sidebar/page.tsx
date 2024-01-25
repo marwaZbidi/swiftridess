@@ -14,7 +14,7 @@ import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import axios from "axios";
 import Link from 'next/link';
 import DonutSmallIcon from '@mui/icons-material/DonutSmall';
-
+import ChatIcon from '@mui/icons-material/Chat';
 interface MenuItem {
   title: string;
   path: string;
@@ -162,7 +162,12 @@ className="w-full h-full rounded-full" />:<img
             </ListItemIcon>
             <Link href={'/admin/calendar'} ><button ><ListItemText primary={show&&<p>Calendar</p>} /></button></Link>
           </ListItem>
-
+          <ListItem button>
+            <ListItemIcon>
+              <ChatIcon color="primary" className="hover:bg-gray-300 hover:bg-opacity-50"/>
+            </ListItemIcon>
+            <Link href={'/admin/chat'} ><button > <ListItemText primary={show&&<p>Chat</p>} /></button></Link>
+          </ListItem>
 
           <ListItem button>
             <ListItemIcon>
@@ -176,6 +181,7 @@ className="w-full h-full rounded-full" />:<img
             </ListItemIcon>
             <Link href={'/admin/Polar'} ><button > <ListItemText primary={show&&<p>Top Cars</p>} /></button></Link>
           </ListItem>
+
           </div>
           </List>
       </div>

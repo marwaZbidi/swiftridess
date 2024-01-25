@@ -26,6 +26,7 @@ const [newPassword, setNewPassword] = useState<string>("")
 const [password,setPassword]=useState<string>("")
 const [image_user,setimage_user]=useState<string>("")
 const [previewImage, setPreviewImage] = useState<string>("");
+const [hashedNewPassword,setHashedNewPassword] = useState<string>("");
 const fileInputRef = useRef<HTMLInputElement>(null); 
 const userId = typeof window !== 'undefined' ? localStorage.getItem("id"): null;
 
@@ -62,12 +63,8 @@ const addPicture = (e: React.ChangeEvent<HTMLInputElement>) => {
   };
   const modifyProfile = async (user: New) => {
     try {
-
-      let hashedNewPassword: string | null = null;
-
-      if (newPassword) {
-        hashedNewPassword = await bcrypt.hash(newPassword, 10);
-      }
+      let i = await bcrypt.hash(newPassword, 10);
+        setHashedNewPassword(i) 
 
       const updatedUser = {
         ...user,

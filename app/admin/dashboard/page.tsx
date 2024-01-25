@@ -9,7 +9,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import Sidebar from "../sidebar/page"
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 import MovingIcon from '@mui/icons-material/Moving';
-import Navbar from "../navbar/page"
+
 import { AreaChart, Area,BarChart, XAxis, YAxis, Bar, Tooltip, Legend} from "recharts";
 import { PieChart, Pie} from "recharts";
 import styles from"./feedback.module.css"
@@ -171,7 +171,7 @@ const dashboard: React.FC  = () => {
  
       <div className="flex-1 bg-gray-100 p-4 ml-[300px] grid grid-col-2">
     
-      <div><Navbar/></div>
+      
       <Typography variant="h2" fontWeight="bold" style={{ color: '#000080' }}>
          Welcome to your Dashboard 
       </Typography>

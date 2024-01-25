@@ -34,7 +34,7 @@ const Login = () => {
         push("/Home")
       }
       if(logUser.data.role ==="admin") {
-        push("/Admin")
+        push("/admin/dashboard")
       }
     } catch (e) {
       const error = e as AxiosError;

@@ -1,8 +1,8 @@
 "use client"
-
+import axios from 'axios';
 import { Typography } from "@mui/material"
 import Sidebar from "../sidebar/page"
-import React,{useState } from "react"
+import React,{useState,useEffect } from "react"
 import FullCalendar from "@fullcalendar/react";
 import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -15,10 +15,40 @@ import {
   ListItemText
 } from "@mui/material";
 
+interface Reservation {
+  currentDateTime: string;
+  user: {
+    fullName: string;
+    phoneNumber: number;
+    email: string;
+  };
+  car: {
+    idcars: number;
+    brand: string;
+    model: string;
+  };
+}
 
 const calendar =()=>{
+ 
+  const [currentEvents, setCurrentEvents] = useState<Reservation[]> ([]);
+  let idcompany= typeof window !== 'undefined' ? localStorage.getItem("id"): null;
 
-  const [currentEvents, setCurrentEvents] = useState([]);
+
+  useEffect(() => {
+    const Data = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/api/company/reservation/${idcompany}`);
+        console.log('Response:', response.data); // Log the response data
+        setCurrentEvents(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    Data();
+  }, []);
+
 
   const handleDateClick = (selected:any) => {
     const title = prompt("Please enter a new title for your event");
@@ -30,20 +60,19 @@ const calendar =()=>{
         title,
         start: selected.startStr,
         end: selected.endStr,
-        allDay: selected.allDay,
       });
     }
   };
 
-  const handleEventClick = (selected:any) => {
-    if (
-      window.confirm(
-        `Are you sure you want to delete the event '${selected.event.title}'`
-      )
-    ) {
-      selected.event.remove();
-    }
-  };
+  // const handleEventClick = (selected:any) => {
+  //   if (
+  //     window.confirm(
+  //       `Are you sure you want to delete the event '${selected.event.title}'`
+  //     )
+  //   ) {
+  //     selected.event.remove();
+  //   }
+  // };
 
     return (
         <div className="flex h-screen">
@@ -68,7 +97,7 @@ const calendar =()=>{
           <List>
             {currentEvents.map((event) => (
               <ListItem
-                key={event.id}
+                key={event.user.fullName}
                 sx={{
                   // backgroundColor:greenAccent[500],
                   margin: "10px 0",
@@ -76,12 +105,8 @@ const calendar =()=>{
                 }}
               >
                 <ListItemText
-                  primary={event.title}
-                  secondary={
-                    <Typography>
+                  primary={event.user.phoneNumber}
 
-                    </Typography>
-                  }
                 />
               </ListItem>
             ))}
