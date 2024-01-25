@@ -320,8 +320,61 @@ return res.status(200).json(search)
 //   }
 // }
 
+
+const reserveVehicle = async (req, res) => {
+  try {
+    const { vehicleId } = req.params;
+
+    // Calculate the reservation date (3 months from the current date)
+    const reservationDate = new Date();
+    reservationDate.setMonth(reservationDate.getMonth() + 3);
+
+    // Update the 'reserved' field in the 'cars' table
+    await Cars.update(
+      { reserved: reservationDate },
+      {
+        where: {
+          idcars: vehicleId,
+        },
+      }
+    );
+
+    res.status(201).json({ message: 'Reservation successful', reservationDate });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+ const getAllreservation=async(req, res)=> {
+  try {
+    const reserve = await Reservation.findAll();
+    res.json(reserve);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+
+// const getAllReservationsWithDetails = async (req, res) => {
+//   try {
+//       const reservations = await Reservation.findAll({
+//           include: [
+//               { model: Company, attributes: ['name'] },
+//               { model: Cars, attributes: ['name'] },
+//               { model: Client, attributes: ['name'] }
+//           ],
+//           attributes: ['id', 'reservation_date']
+//       });
+
+//       res.json(reservations);
+//   } catch (error) {
+//       console.error(error);
+//       res.status(500).json({ error: 'Internal Server Error' });
+//   }
+
 module.exports = {
-  // getEvents,
+  // getAllReservationsWithDetails,
+  getAllreservation,
   searchByName,
   getAllUsers,
   getUserById,
@@ -333,4 +386,5 @@ module.exports = {
   getCompanyInfoByCarId,
   deleteReservation,
   acceptReservation,
+  reserveVehicle,
 };

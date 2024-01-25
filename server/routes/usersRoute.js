@@ -25,11 +25,17 @@ router.get('/company/car/:id', UserController.getCompanyInfoByCarId);
 
 router.get('/company/reservation/:idcompany', UserController.getReservationById);
 
+router.get('/admin/reservation',UserController.getAllreservation);
+// router.get('/reservation',UserController.getAllReservationsWithDetails);
+
+
 router.post('/company/reservation/:userid/:vehicleid', UserController.createReservation);
 
 router.post('/company/reservation/accept', UserController.acceptReservation); 
 
 router.delete('/company/reservation/delete', UserController.deleteReservation); 
+
+router.post('/company/reservationdate/:vehicleId', UserController.reserveVehicle);
 
 
 module.exports = router;

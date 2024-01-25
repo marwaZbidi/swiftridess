@@ -29,7 +29,7 @@ const ReservationComponent: React.FC = () => {
         console.log('Response:', response.data); // Log the response data
         setReservationData(response.data);
       } catch (error) {
-        console.error('Error fetching data:', error.message);
+        console.error('Error fetching data:', error);
       }
     };
 

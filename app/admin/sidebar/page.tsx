@@ -160,16 +160,16 @@ className="w-full h-full rounded-full" />:<img
             <ListItemIcon>
               <EventOutlinedIcon color="primary" className="hover:bg-gray-300 hover:bg-opacity-50"/>
             </ListItemIcon>
-            <Link href={'/admin/calendar'} ><button ><ListItemText primary={show&&<p>Calendar</p>} /></button></Link>
+            <Link href={'/admin/reservation'} ><button ><ListItemText primary={show&&<p>Reservations</p>} /></button></Link>
           </ListItem>
           <ListItem button>
             <ListItemIcon>
               <ChatIcon color="primary" className="hover:bg-gray-300 hover:bg-opacity-50"/>
             </ListItemIcon>
-            <Link href={'/admin/chat'} ><button > <ListItemText primary={show&&<p>Chat</p>} /></button></Link>
+            <Link href={'/admin/chat'} ><button > <ListItemText primary={show&&<p>Feedbacks</p>} /></button></Link>
           </ListItem>
 
-          <ListItem button>
+          {/* <ListItem button>
             <ListItemIcon>
               <BarChartOutlinedIcon color="primary"className="hover:bg-gray-300 hover:bg-opacity-50"/>
             </ListItemIcon>
@@ -180,7 +180,7 @@ className="w-full h-full rounded-full" />:<img
               <DonutSmallIcon color="primary" className="hover:bg-gray-300 hover:bg-opacity-50"/>
             </ListItemIcon>
             <Link href={'/admin/Polar'} ><button > <ListItemText primary={show&&<p>Top Cars</p>} /></button></Link>
-          </ListItem>
+          </ListItem> */}
 
           </div>
           </List>
