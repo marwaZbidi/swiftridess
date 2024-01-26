@@ -39,7 +39,7 @@ const UserOperations: React.FC = () => {
       console.log(response.data);
       setDialogOpen(false); // Close the dialog after submitting the form
     } catch (error) {
-      console.error('Error deleting reservation:', error.message);
+      console.error('Error deleting reservation:', error);
     }
   };
 
