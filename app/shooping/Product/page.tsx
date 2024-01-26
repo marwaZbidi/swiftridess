@@ -3,12 +3,13 @@ import React, { useState, useEffect } from 'react';
 import { FaRegHeart } from "react-icons/fa";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import axios from "axios"
-import Link from 'next/link'; 
+
 import "../shopss.css"
 import Banner from "../navBar/banner";
 import Footers from "../../Home/footer/page";
-
+import Nav from "../navBar/page";
 import { log } from "console";
+import Link from 'next/link';
 
 const Product: React.FC = () => {
   const [All, setAll] = useState<any[]>([]);
@@ -46,6 +47,8 @@ const Product: React.FC = () => {
     <>
     <div className='navvbar'>
     <Banner />
+   
+    
     </div>
      
 

@@ -97,7 +97,7 @@ router.push(path)
 
         <div className='mt-20 '>
           <input className='border-gray-300 border rounded w-48 h-12 text-center text-sm' type="text" placeholder='Coupon Code' />
-          <button className='ml-3 bg-red w-40 h-12 border rounded text-white text-sm'>Apply Coupon</button>
+          <button className='ml-3 bg-gray-600 w-40 h-12 border rounded text-white text-sm'>Apply Coupon</button>
         </div>
 
         <img className="imga" src="https://images2.imgbox.com/fc/97/c24stbXg_o.png" alt=""></img>
@@ -111,7 +111,7 @@ router.push(path)
 
           <button
           onClick={()=>navigate('/shooping/paiement')} 
-          className=' bg-red w-40 h-12 border rounded text-white text-sm' id='check'>Checkout</button>
+          className=' bg-gray-600 w-40 h-12 border rounded text-white text-sm' id='check'>Checkout</button>
         </div>
       </div>
   );
