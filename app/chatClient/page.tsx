@@ -83,7 +83,12 @@ useEffect(() => {
                 className={style.chatProfileSpan}
                 style={{ textAlign: client_id == userId ? "right" : "left" }}
               >
-                {client_id}
+                 {!userId?"":<img
+                        src="https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg"
+                        className="w-full h-full rounded-full"
+                        alt="Profile"
+                        
+                    />}
               </span>
               <h3 style={{ textAlign: client_id == userId ? "right" : "left" }}>
                 {content}

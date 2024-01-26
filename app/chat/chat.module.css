@@ -1,6 +1,5 @@
 .main_div {
-    height: 100vh;
-    widows: 100vw;
+   
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,9 +12,7 @@
     padding: 5px;
   }
   .main_button {
-    height: 2rem;
-    width: 15rem;
-    display: flex;
+   
     justify-content: center;
     align-items: center;
   }

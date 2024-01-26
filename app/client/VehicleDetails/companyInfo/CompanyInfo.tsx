@@ -6,7 +6,6 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import EmailIcon from '@mui/icons-material/Email';
-import ChatIcon from '@mui/icons-material/Chat';
 import { Modal } from "react-responsive-modal";
 import Home from "../../../chat/page"
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
@@ -31,9 +30,9 @@ const CarCompanyInfo: React.FC<CarCompanyInfoProps> = ({ }) => {
   const [companyInfo, setCompanyInfo] = useState<CompanyInfo | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  // const [modalOpen, setModalOpen] = useState<boolean>(false);
 
-const userId=localStorage.getItem("id")
+// const userId=localStorage.getItem("id")
   var currentUrl = window.location.href;
     var endPoint=currentUrl.split("/")
     var i=endPoint[endPoint.length-1]
@@ -43,6 +42,7 @@ const userId=localStorage.getItem("id")
       try {
         const response = await axios.get(`http://localhost:3000/api/company/car/${i}`);
         setCompanyInfo(response.data);
+        localStorage.setItem('company', String(response.data.idcompany));
       } catch (error) {
         setError('Error fetching company info');
       } finally {
@@ -72,13 +72,6 @@ const userId=localStorage.getItem("id")
       <p><CalendarMonthIcon/> </p>
     <div className='bottomSection'>
     <p>Contact:</p>
-    {!userId?" ":<button onClick={() => setModalOpen(true)}>
- <ChatIcon/>Contact Us
- </button>
-}
-<Modal open={modalOpen} onClose={() => setModalOpen(false)} center>
-  <Home company={companyInfo.idcompany}/>
-</Modal>
       <p><LocalPhoneIcon/> {companyInfo.phoneNumber}</p>
       <p><EmailIcon/> {companyInfo.emailCompany}</p>
     </div>
