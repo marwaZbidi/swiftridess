@@ -3,6 +3,7 @@ const Cars=require('../models/vehicles');
 const Company=require('../models/company');
 const Reservation=require('../models/reservation');
 const jwt =require('jsonwebtoken')
+const Feedback=require('../models/feedback');
 
 
 const generateToken = (id, fullName) => {
@@ -299,7 +300,152 @@ return res.status(200).json(search)
 }
 
 
+const reserveVehicle = async (req, res) => {
+  try {
+    const { vehicleId } = req.params;
+    const reservationDate = new Date();
+    reservationDate.setMonth(reservationDate.getMonth() + 3);
+    await Cars.update(
+      { reserved: reservationDate },
+      {
+        where: {
+          idcars: vehicleId,
+        },
+      }
+    );
+    res.status(201).json({ message: 'Reservation successful', reservationDate });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+
+
+
+
+async function getAllFeedBack(req, res) {
+  try {
+    const feedbacks = await Feedback.findAll({
+      include: [
+        {
+          model: User,
+          as: 'client',
+          attributes: ['fullName', 'image_user'], 
+        },
+      ],
+    });
+    const feedbacksWithFullNameAndImage = feedbacks.map((feedback) => ({
+      idfeedback: feedback.idfeedback,
+      content: feedback.content,
+      client_id: feedback.client_id,
+      clientFullName: feedback.client.fullName,
+      clientImageUser: feedback.client.image_user, 
+    }));
+
+    res.json(feedbacksWithFullNameAndImage);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+
+async function createFeedback(req, res) {
+  const { content, client_id } = req.body;
+  try {
+    if (!content || !client_id) {
+      return res.status(400).json({ error: 'Content and client_id are required fields.' });
+    }
+    const newFeedback = await Feedback.create({
+      content,
+      client_id,
+    });
+    res.status(201).json(newFeedback);
+    
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+async function removeFeedback(req, res) {
+  const { idfeedback } = req.params;
+
+  try {
+    const deleted = await Feedback.destroy({
+      where: { idfeedback: idfeedback }, // Make sure the field name matches your model
+    });
+
+    if (deleted) {
+      res.json({ message: 'Feedback deleted successfully' });
+    } else {
+      res.status(404).json({ message: 'Feedback not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+async function getCarsLength(req, res) {
+  try {
+    const rowCount = await Cars.count();
+    res.json({ rowCount });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+async function getCompanyLength(req, res) {
+  try {
+    const rowCount = await Company.count();
+    res.json({ rowCount });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+async function getClientLength(req, res) {
+  try {
+    const rowCount = await User.count(
+      {where: { role: "client" }}
+    );
+    res.json({ rowCount });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+async function getFeedbackLength(req, res) {
+  try {
+    const rowCount = await Feedback.count();
+    res.json({ rowCount });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+async function available(req, res) {
+  try {
+    const rowCount = await Reservation.count(
+    {where: { accepted: true }}
+    );
+    res.json({ rowCount });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+
+
+
+
+
 module.exports = {
+ 
+  available,
+  getFeedbackLength,
+  getCompanyLength,
+  getClientLength,
+  getCarsLength,
+  removeFeedback,
   searchByName,
   getAllUsers,
   getUserById,
@@ -311,4 +457,7 @@ module.exports = {
   getCompanyInfoByCarId,
   deleteReservation,
   acceptReservation,
+  reserveVehicle,
+  getAllFeedBack,
+  createFeedback
 };

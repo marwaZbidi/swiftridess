@@ -1,11 +1,12 @@
 "use client"
 import axios from "axios";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useParams } from "next/navigation";
 import bcrypt from "bcryptjs"
 import Navigation from "@/app/Home/navbar/page";
-import NotFound from "@/app/notFound/page";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 interface Client {
     id:string|null;
     fullName: string;
@@ -14,20 +15,34 @@ interface Client {
     email: string;
     password: string
   }
-
+  const notify = () => toast.success('You successfully updated your account !', {
+    position: "top-center",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+    });
 const UpdateProfile=()=>{
-  
     const [imgUrl, setImgUrl] = useState<string>("");
     const [fullName, setFullName] = useState<string>("")
     const [phoneNumber, setPhoneNumber] = useState<string>("")
     const [email, setEmail] = useState<string>("")
     const [newPassword, setNewPassword] = useState<string>("")
     const [previewImage, setPreviewImage] = useState<string>("");
-    const userId = typeof window !== 'undefined' ? localStorage.getItem("id") : null
+    const [userId, setUserId] = useState<string|null>("")
     const {id} = useParams()
     
     const fileInputRef = useRef<HTMLInputElement>(null);
-    
+    useEffect(()=>{
+      getId();
+    },[])
+    const getId=()=>{
+      const userId = typeof window !== 'undefined' ? window.localStorage.getItem("id") : null
+          setUserId(userId)
+    }
     const addPicture = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
     
@@ -74,9 +89,8 @@ const UpdateProfile=()=>{
           };
     
           const response = await axios.put(`http://localhost:3000/api/users/${userId}`, updatedUser);
-    
           console.log(response.data, 'res');
-          alert('You successfully updated your account');
+          notify()
         } catch (error) {
           console.error(error);
         }
@@ -88,10 +102,11 @@ const UpdateProfile=()=>{
 return(    
   <>
   {(id!==userId)&&
-  <NotFound/>}
+  "not found"}
   {(id===userId)&&
     <div>
       <Navigation/>
+      <ToastContainer/>
   <div className="flex justify-between">
                 <div className="flex">
 <div className=" bg-slate ml-80 mt-40 w-[1000px] h-[600px] flex flex-col gap-5 px-3 md:px-16 lg:px-28 md:flex-row text-[#161931] ">
@@ -164,7 +179,9 @@ return(
                         <div className="flex justify-end">
                             <button type="submit"
                                 className=" bg-gray-800 text-white border border-blue-400 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group"
-                                onClick={()=>{modifyProfile({id:userId,fullName:fullName,phoneNumber:phoneNumber,email:email,password:newPassword,image_user:imgUrl})}}>
+                                onClick={()=>{modifyProfile({id:userId,fullName:fullName,phoneNumber:phoneNumber,email:email,password:newPassword,image_user:imgUrl})
+                                window.location.reload();
+                                }}>
                                 Save</button>
                         </div>
                         

@@ -1,13 +1,14 @@
 "use client"
 import axios from "axios";
-import { useState} from "react";
+import { useState, useEffect} from "react";
 import bcrypt from "bcryptjs"
 import { useParams } from "next/navigation";
 import Sidebar from "../../DashBoard/Sidenav";
-import NotFound from "@/app/notFound/page";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Company {
-    idcompany:string;
+    idcompany:string|null;
     companyName: string;
     ownerName: string;
     phoneNumber: string;
@@ -22,13 +23,34 @@ const UpdateProfile=()=>{
     const [phoneNumber, setPhoneNumber] = useState<string>("")
     const [emailCompany, setEmailCompany] = useState<string>("")
     const [newPassword, setNewPassword] = useState<string>("")
-    const idcompany = typeof window !== 'undefined' ? localStorage.getItem("idcompany") : null
-    const {id} = useParams()
+    const [idcompany, setIdcompany] = useState<string|null>("")
+    const param = useParams()
+    const id=param.id
+    useEffect(()=>{
+        getId();
+      },[])
+      const getId=()=>{
+        const idcompany = typeof window !== 'undefined' ? window.localStorage.getItem("idcompany") : null
+        console.log("iii",param);
+            setIdcompany(idcompany)
+      }
+
 const password=async (val:any)=>{
     let hashedNewPassword = await bcrypt.hash(newPassword, 10);
     setNewPassword(hashedNewPassword)
     
 }
+const notify = () => toast.success('You successfully updated your account !', {
+    position: "top-center",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+    });
+
       const modifyProfile = async (company:Object) => {
         
           const updatedCompany = {
@@ -38,20 +60,20 @@ const password=async (val:any)=>{
     
         try {
       
-            const response = await axios.put(`http://localhost:3000/api/company/profile/${idcompany}`, updatedCompany);
-      
+            const response = await axios.put(`http://localhost:3000/api/company/profile/${idcompany}`, updatedCompany);       
             console.log(response.data, 'res');
-            alert('You successfully updated your account');
+            notify()
           } catch (error) {
             console.error(error);
           }
               };
+              
     
 
 return(
     <>
     {(id!==idcompany)&&
-    <NotFound/>}
+    "not found"}
     {(id===idcompany)&& 
     <div>
     <Sidebar/>
@@ -60,6 +82,7 @@ return(
 <div className=" w-[800px] rounded-md h-[550px] mt-[100px] ml-[400px] bg-white  flex flex-col gap-5 px-3 md:px-16 lg:px-28 md:flex-row text-[#161931] bg-gray-300">
 
     <main className="w-full min-h-screen py-1 md:w-2/3 lg:w-3/4 ">
+        <ToastContainer/>
     <h1 className="font-serif text-center font-bold text-[40px]">Update Profile</h1>
         <div className="p-2 md:p-4">
             <div className="w-full px-6 pb-8 mt-5 sm:max-w-xl sm:rounded-lg">

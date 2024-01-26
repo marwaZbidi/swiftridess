@@ -1,10 +1,11 @@
 "use client"
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef} from "react"
 import axios from "axios"
 import SideNav from "../../DashBoard/Sidenav"
 import { useParams } from "next/navigation"
 import NotFound from "@/app/notFound/page"
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Car {
     price: number;
@@ -69,7 +70,17 @@ const UpdateCar = ({ carData }: { carData: Car | null }) => {
         }
       };
 
-     
+      const notify = () => {
+        toast.success('Car  updated successfully!', {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          theme: "colored",
+        });
+      };
     
       const update = () => {
         const obj: Car = {
@@ -88,7 +99,7 @@ const UpdateCar = ({ carData }: { carData: Car | null }) => {
         axios
           .put(`http://localhost:3000/api/car/update/${idcars}`, obj)
           .then(() => {
-            alert('Car updated successfully');
+            notify()
           })
           .catch((err) => {
             console.log(err);
@@ -99,10 +110,12 @@ const UpdateCar = ({ carData }: { carData: Car | null }) => {
     return(
        <>
     {(id!==idcars)&&
-    <NotFound/>}
+    "not found"}
     {(id===idcars)&& 
        <div>
+        
         <SideNav/>
+        <ToastContainer/>
         <div className="mt-[100px] ml-[300px] bg-gradient-to-r from-gray-800 to-white-300 w-[1000px] rounded-tr-[100px] rounded-bl-[100px]">
        <h1 className="text-center font-bold-5xl text-[70px]  ml-50 text-white font-serif">Update Vehicle</h1>
         <div className="grid grid-cols-2 ">

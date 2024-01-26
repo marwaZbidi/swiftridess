@@ -3,8 +3,11 @@ import React,{useState,useEffect} from "react";
 import { Typography } from "@mui/material";
 import Sidebar from "../sidebar/page"
 import axios from 'axios';
-
-
+import RestoreFromTrashIcon from '@mui/icons-material/RestoreFromTrash';
+import SearchIcon from '@mui/icons-material/Search';
+import { Modal } from "react-responsive-modal";
+import Reservation from "../reservation/page"
+import 'react-responsive-modal/styles.css';
 interface Company {
   idcompany: number;
   companyName: string;
@@ -12,7 +15,7 @@ interface Company {
   phoneNumber: string;
   verification : number;
   longtitude:string;
-  latitude:string;
+  laltitude:string;
   emailCompany:string;
   PaymentVerification:boolean;
   createdAt:Number;
@@ -25,15 +28,15 @@ const company:React.FC =()=>{
   const [companyData, setCompanyData] = useState<Company[]| null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-
+  const [searched,setSearched]=useState<string>("");
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://localhost:3000/api/company/getAll');
-console.log(response.data);
+console.log("eee",response.data);
 
         setCompanyData(response.data);
       } catch (error) {
@@ -58,11 +61,29 @@ console.log(response.data);
     } catch (error) {
       console.error("delete category:", error);
     }
+    location.reload();
+
   };
 
+  const search = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/api/company/getbyName/${searched}`);
 
+      if (!response.ok) {
+        console.error(`HTTP error! Status: ${response.status}`);
+      }
 
+      const searchData: Company[] = await response.json();
+      setCompanyData(searchData);
+      console.log("found", searchData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearched(event.target.value);
+  };
     return (
         <div className="flex h-screen">
         <Sidebar/>
@@ -72,23 +93,33 @@ console.log(response.data);
            {/* Your main content goes here */}
            <div>
 
+<div className="mb-4 ml-[800px]">
+              <input
+                type="text"
+                placeholder="Search ...."
+                value={searched}
+                onChange={handleSearchChange}
+                className="p-2 border border-gray-300 rounded-md"
+              />
+              <button onClick={search} className=" p-2 bg-blue-500 text-black rounded-md">
+              <SearchIcon />
+              </button>
+            </div>
            <Typography variant="h2" fontWeight="bold" style={{ color: '#000080' }}>
            List of companies
            </Typography>
            
-           {/* <Typography variant="h5" fontWeight="bold" style={{ color: '#000080' }}>
-             :
-           </Typography> */}
+
            
            <div className="companies-container">
            
           <div className="com-box">
 
 
-<div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+<div className="absolute -ml-[60px] mt-10 overflow-x-auto shadow-md sm:rounded-lg w-[1100px]">
     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
+             <tr>
             <th scope="col" className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
             
                 </th>
@@ -128,9 +159,16 @@ console.log(response.data);
                 <td scope="col" className="px-4 py-2">
                    {e.idcompany}
                 </td>
+        
+                <button onClick={()=>setModalOpen(true)}>
+                  
                 <td scope="row" className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-black">
                 {e.companyName}
                 </td>
+                </button>
+                <Modal open={modalOpen} onClose={() => setModalOpen(false)} center>       
+                  <Reservation idcompany={e.idcompany}/>
+                </Modal>
                 <td scope="row" className="px-4 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-black">
                 {e.ownerName}
                 </td>
@@ -145,11 +183,11 @@ console.log(response.data);
                 {e.longtitude}
                 </td>
                 <td className="px-4 py-2 text-black ">
-                {e.longtitude}
+                {e.laltitude}
                 </td>
                 <td className="flex items-center px-4 py-2"> {e.verification}
                 <button  onClick={() => { deleteCompany(e.idcompany) }}>   
-                <a href="#" className="font-medium text-red-600 dark:text-black hover:underline ms-3">Remove</a>
+                <a href="#" className="font-medium text-red-600 dark:text-black hover:underline ms-3"><RestoreFromTrashIcon style={{ color: 'red' }}/></a>
                 </button> 
                 </td>
 

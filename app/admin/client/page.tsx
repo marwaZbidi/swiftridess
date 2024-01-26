@@ -3,8 +3,8 @@ import React ,{useState , useEffect} from "react";
 import { Typography } from "@mui/material";
 import Sidebar from "../sidebar/page"
 import axios from "axios";
-import Navbar from "../navbar/page"
-
+import RestoreFromTrashIcon from '@mui/icons-material/RestoreFromTrash';
+import SearchIcon from '@mui/icons-material/Search';
 
 interface Client {
   id: number;
@@ -61,6 +61,8 @@ const client: React.FC =()=>{
     } catch (error) {
       console.error("delete category:", error);
     }
+    location.reload();
+
   };
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearched(event.target.value);
@@ -75,7 +77,7 @@ const client: React.FC =()=>{
            {/* Your main content goes here */}
            <div>
 
-<div className="mb-4">
+<div className="mb-4 ml-[800px]">
               <input
                 type="text"
                 placeholder="Search ...."
@@ -83,11 +85,11 @@ const client: React.FC =()=>{
                 onChange={handleSearchChange}
                 className="p-2 border border-gray-300 rounded-md"
               />
-              <button onClick={search} className="ml-2 p-2 bg-blue-500 text-white rounded-md">
-                Search
+              <button onClick={search} className="ml-2 p-2 bg-blue-500 text-black rounded-md">
+              <SearchIcon />
               </button>
             </div>
-           <Typography variant="h1" fontWeight="bold" style={{ color: '#000080' }}>
+           <Typography variant="h1" fontWeight="bold" style={{ color: '#000080' }} className="items-center">
              list clients 
            </Typography>
 
@@ -96,7 +98,7 @@ const client: React.FC =()=>{
           <div  className="com-box">
 
 
-<div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+<div className="  absolute -ml-[60px] mt-10 overflow-x-auto shadow-md sm:rounded-lg w-[1100px]">
     <table className="w-full text-sm text-left rtl:text-right text-black dark:text-black">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -119,7 +121,7 @@ const client: React.FC =()=>{
                 </th>
 
                 <th scope="col" className="px-6 py-3 hover:bg-gray-200 cursor-pointer">
-                    Verification 
+                    Edit 
                 </th>
             </tr>
         </thead>
@@ -144,7 +146,7 @@ const client: React.FC =()=>{
                 </td>
 
                 <td className="flex items-center px-6 py-4"> 
-                 <button onClick={() => { deletee(e.id) }}> <a href="#" className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3">Remove</a></button>  
+                 <button onClick={() => { deletee(e.id) }}> <a href="#" className="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"><RestoreFromTrashIcon style={{ color: 'red' }}/></a></button>  
                 </td>
             </tr>
         ))}

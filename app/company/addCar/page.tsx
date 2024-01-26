@@ -2,6 +2,8 @@
 import axios from "axios";
 import { useState, useRef } from "react";
 import SideNav from "../../company/DashBoard/Sidenav"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface Car {
     price: number;
@@ -24,13 +26,13 @@ const addCar=()=>{
     const [price, setPrice] = useState<number>(0)
     const [brand, setBrand] =useState<string>("")
     const [model, setModel] =useState<string>("")
-    const [type, setType] =useState<string>("")
-    const [transmission, setTransmission] =useState<string>("")
-    const [fuelType, setFuelType] =useState<string>("")
+    const [type, setType] =useState<string>("SUV")
+    const [transmission, setTransmission] =useState<string>("Automatic")
+    const [fuelType, setFuelType] =useState<string>("Diesel")
     const [registration, setRegistration] =useState<string>("")
     const [mileage, setMileage] =useState<string>("")
-    const [occasion, setOccassion] =useState<string>("")
-    const [passengers, setPassengers] =useState<string>("")
+    const [occasion, setOccassion] =useState<string>("Dialy use")
+    const [passengers, setPassengers] =useState<string>("2")
     const [image, setImage] = useState<string[]>([]);
     const [serialCar, setSerialCar] =useState<string>("")
     const [previewImage, setPreviewImage] = useState<string>("");
@@ -79,6 +81,16 @@ const addCar=()=>{
         passengers: passengers,
         serialCar: serialCar
       };
+      const notify = () => toast.success('Car added successfully!', {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
     
       const addNewCar = () => {
         const idcompany = localStorage.getItem("idcompany")
@@ -89,7 +101,7 @@ const addCar=()=>{
         axios
           .post(`http://localhost:3000/api/car/add`, newCar)
           .then(() => {
-            alert('Car added');
+            notify()
           })
           .catch((err) => {
             console.log(err);
@@ -106,7 +118,7 @@ const addCar=()=>{
        <h1 className="text-center font-bold-5xl text-5xl  ml-50 text-white ">Add New Vehicle</h1>
         <div className="grid grid-cols-2 ">
         <div className="grid ml-10 mt-[50px] space-y-4 ">
-            
+        <ToastContainer/>
     <div className="grid grid-cols-2 ">      
   <label  className="block text-white text-lg"
     >Price/Day:</label>
@@ -194,13 +206,12 @@ const addCar=()=>{
   <div className="grid grid-cols-2">
   <label  className="block  text-white  text-lg"
     >Transmission:</label>
- 
-    <input
-    onChange={(e)=>setTransmission(e.target.value)}
-      type="text"
-      name="inputname"
-      className="block w-[300px] rounded-md py-1.5 px-2 ring-1 ring-inset ring-gray-400 focus:text-gray-800"
-    />
+ <select className="block w-[300px] rounded-md py-1.5 px-2 ring-1 ring-inset ring-gray-400 focus:text-gray-800 " 
+  id="transmission" value={transmission}
+  onChange={(e)=>setTransmission(e.target.value)}>
+          <option value="Automatic">Automatic</option>
+          <option value="Manual">Manual</option>
+       </select>
  </div>
  <div className="grid grid-cols-2">
   <label  className="block  text-white  text-lg"
