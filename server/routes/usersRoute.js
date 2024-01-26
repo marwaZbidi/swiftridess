@@ -40,7 +40,20 @@ router.post('/company/reservationdate/:vehicleId', UserController.reserveVehicle
 
 router.get('/user/feedback', UserController.getAllFeedBack);
 
+router.delete('/user/feedback/remove/:idfeedback', UserController.removeFeedback);
+
 
 router.post('/user/feedback', UserController.createFeedback);
+
+router.get('/carlength', UserController.getCarsLength);
+
+router.get('/companylength', UserController.getCompanyLength);
+
+router.get('/clientlength',UserController.getClientLength);
+
+router.get('/feedbacklength',UserController.getFeedbackLength);
+
+router.get('/trueLength', UserController.available);
+
 
 module.exports = router;

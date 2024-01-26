@@ -61,6 +61,8 @@ console.log("eee",response.data);
     } catch (error) {
       console.error("delete category:", error);
     }
+    location.reload();
+
   };
 
   const search = async () => {
@@ -117,7 +119,7 @@ console.log("eee",response.data);
 <div className="absolute -ml-[60px] mt-10 overflow-x-auto shadow-md sm:rounded-lg w-[1100px]">
     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            {/* <tr>
+             <tr>
             <th scope="col" className="px-4 py-2 hover:bg-gray-200 cursor-pointer">
             
                 </th>
@@ -148,7 +150,7 @@ console.log("eee",response.data);
                     Verification
                 </th>
 
-            </tr> */}
+            </tr>
         </thead>
         <tbody>
         {companyData && companyData.map((e,i) => (

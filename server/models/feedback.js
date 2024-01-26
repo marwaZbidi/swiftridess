@@ -13,7 +13,7 @@ const Feedback = sequelize.define('feedback', {
     primaryKey: true,
   },
   content: {
-    type: DataTypes.STRING(45),
+    type: DataTypes.STRING(255),
     allowNull: true,
   },
   client_id: {

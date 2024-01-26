@@ -5,6 +5,7 @@ const Reservation=require('../models/reservation');
 const jwt =require('jsonwebtoken')
 const Feedback=require('../models/feedback');
 
+
 const generateToken = (id, fullName) => {
   const expiresIn = 60 * 60 * 48;
   return jwt.sign({ id, fullName }, 'secretKey', { expiresIn: expiresIn });
@@ -298,28 +299,6 @@ return res.status(200).json(search)
   }
 }
 
-// async function getEvents(req, res) {
-//   try {
-//     const fullName=req.params.name
-//       const reservations = await Reservation.findAll({
-//         where: {fullName: fullName},
-//       });
-
-//       const events = reservations.map((reservation) => ({
-//       iduser: reservation.iduserValue,
-//       idcar: reservation.idvehicleValue,
-//       idcompany: reservation.idcompanyValue,
-//       startDate: reservation.currentDate,
-//       returnDate: reservation.returnDate,
-//       }));
-
-//       res.json(events);
-//   } catch (error) {
-//       console.error('Error fetching events ', error);
-//       res.status(500).json({ error: 'Internal Server Error' });
-//   }
-// }
-
 
 const reserveVehicle = async (req, res) => {
   try {
@@ -343,22 +322,7 @@ const reserveVehicle = async (req, res) => {
 
 
 
-// const getAllReservationsWithDetails = async (req, res) => {
-//   try {
-//       const reservations = await Reservation.findAll({
-//           include: [
-//               { model: Company, attributes: ['name'] },
-//               { model: Cars, attributes: ['name'] },
-//               { model: Client, attributes: ['name'] }
-//           ],
-//           attributes: ['id', 'reservation_date']
-//       });
 
-//       res.json(reservations);
-//   } catch (error) {
-//       console.error(error);
-//       res.status(500).json({ error: 'Internal Server Error' });
-//   }
 
 async function getAllFeedBack(req, res) {
   try {
@@ -386,8 +350,6 @@ async function getAllFeedBack(req, res) {
 }
 
 
-
-
 async function createFeedback(req, res) {
   const { content, client_id } = req.body;
   try {
@@ -405,10 +367,85 @@ async function createFeedback(req, res) {
   }
 }
 
+async function removeFeedback(req, res) {
+  const { idfeedback } = req.params;
+
+  try {
+    const deleted = await Feedback.destroy({
+      where: { idfeedback: idfeedback }, // Make sure the field name matches your model
+    });
+
+    if (deleted) {
+      res.json({ message: 'Feedback deleted successfully' });
+    } else {
+      res.status(404).json({ message: 'Feedback not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+async function getCarsLength(req, res) {
+  try {
+    const rowCount = await Cars.count();
+    res.json({ rowCount });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+async function getCompanyLength(req, res) {
+  try {
+    const rowCount = await Company.count();
+    res.json({ rowCount });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+async function getClientLength(req, res) {
+  try {
+    const rowCount = await User.count(
+      {where: { role: "client" }}
+    );
+    res.json({ rowCount });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+async function getFeedbackLength(req, res) {
+  try {
+    const rowCount = await Feedback.count();
+    res.json({ rowCount });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+async function available(req, res) {
+  try {
+    const rowCount = await Reservation.count(
+    {where: { accepted: true }}
+    );
+    res.json({ rowCount });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+
+
+
+
+
 module.exports = {
-  // getAllReservationsWithDetails,
-  // getAllreservation,
  
+  available,
+  getFeedbackLength,
+  getCompanyLength,
+  getClientLength,
+  getCarsLength,
+  removeFeedback,
   searchByName,
   getAllUsers,
   getUserById,

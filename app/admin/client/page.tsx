@@ -61,6 +61,8 @@ const client: React.FC =()=>{
     } catch (error) {
       console.error("delete category:", error);
     }
+    location.reload();
+
   };
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearched(event.target.value);

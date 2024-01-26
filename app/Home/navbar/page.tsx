@@ -23,7 +23,9 @@ const ProfileDropDown: React.FC<ProfileDropDownProps> = (props) => {
     const [state, setState] = useState(false);
     const [person,setPerson] = useState<users | null>(null);
     const profileRef = useRef<HTMLButtonElement>(null);
-    const userId = localStorage.getItem('id');
+    // const userId = localStorage.getItem('id');
+    const userId = typeof window !== 'undefined' ? localStorage.getItem("id"): null;
+
     const logout=()=>{
         localStorage.removeItem('id');
         localStorage.removeItem('idcompany');
