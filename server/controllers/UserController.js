@@ -422,11 +422,35 @@ async function getFeedbackLength(req, res) {
     res.status(500).json({ error: error.message });
   }
 }
-async function available(req, res) {
+
+// async function getcarsLength(req, res) {
+
+//   try {
+//     const { idcompany } = req.params;
+//     const rowCount = await Cars.count(
+//       {where: { idcompany:idcompany }}
+//     );
+//     res.json({ rowCount });
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// }
+
+async function getcarsLength(req, res) {
   try {
-    const rowCount = await Reservation.count(
-    {where: { accepted: true }}
-    );
+    const { company_id } = req.params;
+
+    // Ensure company_id is a valid integer
+    if (isNaN(company_id)) {
+      return res.status(400).json({ error: 'Invalid company_id provided' });
+    }
+
+    const company_idValue = parseInt(company_id, 10);
+
+    const rowCount = await Cars.count({
+      where: { company_idcompany: company_idValue },
+    });
+
     res.json({ rowCount });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -440,7 +464,7 @@ async function available(req, res) {
 
 module.exports = {
  
-  available,
+  getcarsLength,
   getFeedbackLength,
   getCompanyLength,
   getClientLength,

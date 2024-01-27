@@ -53,7 +53,6 @@ router.get('/clientlength',UserController.getClientLength);
 
 router.get('/feedbacklength',UserController.getFeedbackLength);
 
-router.get('/trueLength', UserController.available);
-
+router.get('/carscompany/:company_id', UserController.getcarsLength)
 
 module.exports = router;
