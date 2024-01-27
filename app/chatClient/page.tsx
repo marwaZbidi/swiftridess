@@ -32,14 +32,14 @@ const ChatPage = ({ socket, userId, roomId,companyId }: any) => {
       const msgData: IMsgDataTypes = {
         roomId,
         company_idcompany:companyId,
-        client_id: userId,
+        client_id: userId ,
         content: currentMsg,
       };
       await socket.emit("send_msg", msgData);
       setCurrentMsg("");
     }
   };
-
+console.log("roomId", roomId, "companyId", companyId, "clientId", userId, "content",currentMsg);
 
   useEffect(() => {
     socket.on("receive_msg", (data: IMsgDataTypes) => {
@@ -74,7 +74,7 @@ useEffect(() => {
             <div
               key={key}
               className={
-                client_id == userId
+                client_id === userId
                   ? style.chatProfileRight
                   : style.chatProfileLeft
               }
@@ -83,7 +83,12 @@ useEffect(() => {
                 className={style.chatProfileSpan}
                 style={{ textAlign: client_id == userId ? "right" : "left" }}
               >
-                {client_id}
+                 {!userId?"":<img
+                        src="https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg"
+                        className="w-full h-full rounded-full"
+                        alt="Profile"
+                        
+                    />}
               </span>
               <h3 style={{ textAlign: client_id == userId ? "right" : "left" }}>
                 {content}

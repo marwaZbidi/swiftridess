@@ -19,7 +19,7 @@ interface ReservationData {
 }
 
 const ReservationComponent: React.FC = () => {
-  const [reservationData, setReservationData] = useState<ReservationData | null>(null);
+  const [reservationData, setReservationData] = useState<ReservationData[] | null>(null);
   const idcompany = localStorage.getItem('idcompany')
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const ReservationComponent: React.FC = () => {
         console.log('Response:', response.data); // Log the response data
         setReservationData(response.data);
       } catch (error) {
-        console.error('Error fetching data:', error.message);
+        console.error('Error fetching data:', error);
       }
     };
 

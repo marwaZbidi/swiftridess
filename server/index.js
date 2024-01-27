@@ -26,7 +26,6 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static(__dirname + '/../client/dist'))
 
-
 //user routes
 app.use('/api',loginRouterUser)
 app.use('/api',signupRouterUser)

@@ -100,9 +100,6 @@ const UpdateProfile=()=>{
 
 return(    
   <>
-  {(id!==userId)&&
-  "not found"}
-  {(id===userId)&&
     <div>
       <Navigation/>
       <ToastContainer/>
@@ -192,7 +189,7 @@ return(
 </div>
 </div>
 </div>
-}
+
 </>
 )
 }
