@@ -95,7 +95,7 @@ module.exports = {
           return res.status(500).json({ error: 'Internal Server Error' });
         }
       },
-
+//////////////////////////////////////////////
       getCarsByCompany: async (req, res) => {
         const { id } = req.params;
         try {
@@ -108,7 +108,7 @@ module.exports = {
           res.status(500).json({ error: 'Internal Server Error' });
         }
       },
-
+/////////////////////////////////////
       getAllCarsByCompany :  async (req, res) => {
         const { id } = req.params;
         try {

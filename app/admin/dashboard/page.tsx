@@ -21,7 +21,8 @@ const dashboard: React.FC  = () => {
   const [companylength, setCompanyLength] = useState<number | null>(null)
   const [clientlength, setClientLength] = useState<number | null>(null)
   const [feedbacklength, setFeedbackLength] = useState<number | null>(null)
-  const [reservationlength, setReservationLength] = useState<number | null>(null)
+  const [carcompany, setcarcompany] = useState<number | null>(null)
+ const [allcars,setallcars] = useState<{}>({})
 
 
   useEffect(() => {
@@ -91,15 +92,30 @@ async function fetchFeedbacktLength() {
   }
 }
 
-async function fetchResevationLength() {
+async function getLength(id: number) {
   try {
-    const data = await fetchData('http://localhost:3000/api/trueLength');
-    setReservationLength( data.rowCount);
+    const data = await fetchData(`http://localhost:3000/api/company/cars/${id}`);
+    setcarcompany( data.rowCount);
   } catch (error) {
     console.error('Error fetching client length:', error);
   }
 }
-fetchResevationLength()
+
+async function getAlllengthcar(id: number) {
+  try {
+    const data = await fetchData(`http://localhost:3000/api/company/allcars/1`);
+    setallcars( data.rowCount);
+    console.log('eyouta',data);
+    
+    console.log('eeeyaa',allcars);
+  } catch (error) {
+    console.error('Error fetching client length:', error);
+  }
+}
+
+
+getAlllengthcar(1)
+getLength(1)
 fetchCarLength();
 fetchCompanyLength();
 fetchClientLength();
@@ -109,77 +125,58 @@ fetchFeedbacktLength()
 
   const data = [
     {
-      "year": "2016",
+      "day": "2016",
       "Marcedes": 4000,
       "BWM": 2400
     },
     {
-      "year": "2016",
+      "day": "2016",
       "Marcedes": 3000,
       "BWM": 1398
     },
     {
-      "year": "2016",
+      "day": "2016",
       "Marcedes": 2000,
       "BWM": 9800
     },
     {
-      "year": "22/1/2024",
+      "day": "22/1/2024",
       "Marcedes": 2780,
       "BWM": 3908
     },
     {
-      "year": "2016",
+      "day": "2016",
       "Marcedes": 1890,
       "BWM": 4800
     },
     {
-      "year": "2016",
+      "day": "2016",
       "Marcedes": 2390,
       "BWM": 3800
     },
     {
-      "year": "2016",
+      "day": "2016",
       "Marcedes": 3490,
       "BWM": 4300
     }
   ]
   const bar = [
     {
-        name: "Jan",
-        reserved: 4000,
-        available : 2400
+        id: 1,
+        num : 2400
     },
     {
-        name: "Feb",
-        reserved: 5000,
-        available : 1500
-    },
-    {
-        name: "Mar",
-        reserved: 6000,
-        available : 3000
-    },
-    {
-        name: "Apr",
-        reserved: 6500,
-        available : 4500
-    },
-    {
-        name: "May",
-        reserved: 7000,
-        available : 2200
-    },
-    {
-        name: "Jun",
-        reserved: 8000,
-        available : 3500
-    },
-    {
-        name: "Jul",
-        reserved: 7400,
-        available : 5500
-    },
+      id: 1,
+      num : 3000
+  },
+  {
+    id: 1,
+    num : 4000
+},
+{
+  id: 1,
+  num : 4500
+}
   ];
 
 
@@ -312,9 +309,15 @@ fetchFeedbacktLength()
         <YAxis />
         <Tooltip />
         <Legend />
-        <Bar dataKey="reserved" fill="#8b5cf6" />
-        <Bar dataKey="available" fill="#ddd6fe"/>
+        <Bar dataKey="id" fill="#8b5cf6" />
+        <Bar dataKey="num" fill="#8b5cf6" />
       </BarChart>
+    
+
+
+
+
+
 
   </div>
 </section>
