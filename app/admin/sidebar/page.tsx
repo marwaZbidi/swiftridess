@@ -15,6 +15,7 @@ import axios from "axios";
 import Link from 'next/link';
 import DonutSmallIcon from '@mui/icons-material/DonutSmall';
 import ChatIcon from '@mui/icons-material/Chat';
+import ControlPointIcon from '@mui/icons-material/ControlPoint';
 interface MenuItem {
   title: string;
   path: string;
@@ -163,7 +164,12 @@ className="w-full h-full rounded-full" />:<img
             </ListItemIcon>
             <Link href={'/admin/feedback'} ><button > <ListItemText primary={show&&<p>Feedbacks</p>} /></button></Link>
           </ListItem>
-
+          <ListItem button>
+            <ListItemIcon>
+              <ControlPointIcon color="primary" className="hover:bg-gray-300 hover:bg-opacity-50 "/>
+            </ListItemIcon>
+            <Link href={'/admin/AddProdAdmin'} ><button > <ListItemText primary={show&&<p>AddProduct</p>} /></button></Link>
+          </ListItem>
       
 
           </div>

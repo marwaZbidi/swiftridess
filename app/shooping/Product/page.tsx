@@ -3,12 +3,13 @@ import React, { useState, useEffect } from 'react';
 import { FaRegHeart } from "react-icons/fa";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import axios from "axios"
-import Link from 'next/link'; 
+
 import "../shopss.css"
 import Banner from "../navBar/banner";
 import Footers from "../../Home/footer/page";
 import { useCartStore } from "../stores/CartStore";
 import { log } from "console";
+import Link from 'next/link';
 import Nav from '../navBar/page'
 const Product: React.FC = () => {
   const [All, setAll] = useState<any[]>([]);
@@ -84,7 +85,7 @@ const Product: React.FC = () => {
                   </button>
                 )}
                 <Link href={`/shooping/ProcutDetails/${product.ProductID}`}>
-                  <img className='mainimgss' src={product.ProductImage[0] || product.ProductImage} alt="" />
+                  <img className='mainimgss' src={product.ProductImage} alt="" />
                 </Link>
               </div>
               <h1>{product.Name}</h1>

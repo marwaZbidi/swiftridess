@@ -16,6 +16,8 @@ import { Modal } from "react-responsive-modal";
 import "react-responsive-modal/styles.css";
 import Rating from "../rating/Rating"
 import Available from "../companyInfo/VehicleAvailability"
+import Home from "../../../chat/page"
+
 interface Car {
   id: string;
   brand: string;
@@ -39,7 +41,7 @@ const CarInfo = ({ carId }: CarInfoProps) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(
     null
   );
-
+const companyId=localStorage.getItem('company');
   const handleThumbnailClick = (index) => {
     console.log("Selected Image Index:", index);
     setSelectedImageIndex(index);
@@ -146,7 +148,9 @@ const CarInfo = ({ carId }: CarInfoProps) => {
              <Available/>
             </div>
           </div>
-
+          <div className="fixed bottom-10 right-10">
+          <Home company={companyId} />
+          </div>
           {carInfo.image && carInfo.image.length > 0 && (
             <div>
               <div style={{ display: "flex" }}>

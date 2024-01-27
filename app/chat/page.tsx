@@ -4,6 +4,11 @@ import { useEffect, useState } from "react";
 import ChatPage from "../chatClient/page";
 import styles from"./chat.module.css"
 import axios from "axios";
+import { Modal } from "react-responsive-modal";
+import ChatIcon from '@mui/icons-material/Chat';
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import 'react-responsive-modal/styles.css';
+
 // import { error } from "console";
 export default function Home({idRoom,user,company}:any) {
   
@@ -24,6 +29,8 @@ export default function Home({idRoom,user,company}:any) {
   const [showSpinner, setShowSpinner] = useState(false);
   const [roomId, setRoomId] = useState(chat.length+1);
   const [companyId,setCompanyId]=useState(idcompany || company )
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+
   var socket: any;
   socket = io("http://localhost:7000");
 console.log(socket,"socket");
@@ -69,15 +76,19 @@ console.log(socket,"socket");
         /> */}
         <button className={styles.main_button} onClick={() => handleJoin()}>
           {!showSpinner ? (
-            "Chat Now"
+            <div className="w-[50px] h-[50px] rounded-full bg-gray-600 flex justify-center items-center"><QuestionAnswerIcon/></div>
+            
           ) : (
             <div className={styles.loading_spinner}></div>
           )}
         </button>
       </div>
+
       <div style={{ display: !showChat ? "none" : "" }}>
-        <ChatPage socket={socket} roomId={roomId} userId={userId}  companyId={companyId}/>
+      
+        <ChatPage socket={socket} roomId={roomId} userId={userId}  companyId={companyId} className="absolute"/>
       </div>
+      
     </div>
   );
 }

@@ -200,7 +200,7 @@ fetchFeedbacktLength()
       
       <div className="flex-grow p-10">
         <Typography variant="h4" className="mb-6 text-gray-750">
-          General Report
+          General Report    
         </Typography>
 
         <div className="grid grid-cols-4 gap-6">

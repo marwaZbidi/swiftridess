@@ -22,23 +22,17 @@ const Hero = () => {
     {
       id: 0,
       img: img1,
-      title: "Trending Item",
-      mainTitle: "WOMEN'S LATEST FASHION SALE",
-      price: "$20",
+
     },
     {
       id: 1,
       img: img2,
-      title: "Trending Accessories",
-      mainTitle: "MODERN SUNGLASSES",
-      price: "$15",
+
     },
     {
       id: 2,
       img: img3,
-      title: "Sale Offer",
-      mainTitle: "NEW FASHION SUMMER SALE",
-      price: "$30",
+
     },
   ];
 
@@ -50,9 +44,6 @@ const Hero = () => {
             <Slide
               key={item.id}
               img={item.img}
-              title={item.title}
-              mainTitle={item.mainTitle}
-              price={item.price}
             />
           ))}
         </Slider>
