@@ -42,6 +42,8 @@
   .inputBox {
     position: relative;
     width: 250px;
+    right: 15px;
+    top: 10px;
   }
   
   .inputBox input {
@@ -110,5 +112,4 @@
     background-color: rgb(255, 255, 255);
     color: rgb(0, 0, 0);
   }
-  
   
