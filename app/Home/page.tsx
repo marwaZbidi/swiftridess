@@ -15,7 +15,6 @@ import AboutUs from "./AboutUs/page";
 import ClientFeedBack from "./ClientFeedBack/page";
 import Foot from "./footer/page"
 import "./home.css"
-import style from"../../chat/chat.module.css"
 
 const Home = () => {
     const [isChatOpen, setIsChatOpen] = useState<boolean>(false);
