@@ -8,10 +8,21 @@ import Stars from "./stars";
 import Quantity from "./quantity";
 import { useCartStore } from "../../stores/CartStore";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
-
+const AddNotif = () => toast.success('Product added to cart!', {
+  position: "top-center",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "colored",
+});
 
 const ProductInfo: React.FC = () => {
   const [product, setProduct] = useState<any>(null);
@@ -37,8 +48,11 @@ const ProductInfo: React.FC = () => {
   const addCart = (obj: object) => {
     cartStore.setCart([...cartStore.cart, obj]);
     axios.post("http://localhost:3000/api/cart/addCart", obj)
+    
       .then((res) => { console.log(res) })
       .catch((err) => console.log(err))
+      AddNotif()
+
   }
 
   return (
@@ -52,6 +66,7 @@ const ProductInfo: React.FC = () => {
           <div className="stars ">
             <Stars />
           </div>
+          <ToastContainer/>
           <p className="ratings">(150 reviews) </p>
           <Quantity />
           {product.ProductImage && (
