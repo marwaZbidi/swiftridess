@@ -1,5 +1,5 @@
 .chat_div {
-    
+    background-color: #cbd5e1;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,7 +8,7 @@
     overflow-y: auto;
   }
   .chat_border {
-    border: 1px solid red;
+    border-radius: 12px;
     padding: 5px;
     border-top: 1px solid #ccc;
   }
@@ -38,8 +38,8 @@
     border-radius: 10px;
     flex-direction: row-reverse;
     margin-bottom: 5px;
-    background-color: #333;
-    color: #fff;
+    background-color: #F0EDED;
+    color: #000000;
   }
   .chatProfileLeft {
     background-color: #f1f1f1;

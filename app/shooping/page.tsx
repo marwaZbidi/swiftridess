@@ -11,7 +11,6 @@ import Link from "next/link";
 import Hero from "./homeShop/hero";
 import Footer from "./shopFooter/page";
 import FFooter from '../Home/footer/page'
-
 import "./shopss.css"
 
 

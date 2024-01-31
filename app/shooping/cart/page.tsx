@@ -70,7 +70,7 @@ router.push(path)
           <div key={i} className='grid grid-cols-4 mt-10 shadow items-center h-14 w-5/6 ' style={{'display':'flex','justifyContent':'space-around'}}>
            
            <h1 className='ml-5'>{item.NameCart}</h1>
-            <img className='image' src={item.CartImage[0]} alt="no-content" />
+            <img className='image' src={item.CartImage} alt="no-content" />
             
             <h1 className='pricc'>{item.Price} DT</h1>
             <input

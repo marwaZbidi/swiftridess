@@ -5,6 +5,7 @@ const Reservation=require('../models/reservation');
 const jwt =require('jsonwebtoken')
 const Feedback=require('../models/feedback');
 
+
 const generateToken = (id, fullName) => {
   const expiresIn = 60 * 60 * 48;
   return jwt.sign({ id, fullName }, 'secretKey', { expiresIn: expiresIn });
@@ -299,7 +300,6 @@ return res.status(200).json(search)
 }
 
 
-
 const reserveVehicle = async (req, res) => {
   try {
     const { vehicleId } = req.params;
@@ -319,6 +319,10 @@ const reserveVehicle = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+
+
+
 
 async function getAllFeedBack(req, res) {
   try {
@@ -345,6 +349,7 @@ async function getAllFeedBack(req, res) {
   }
 }
 
+
 async function createFeedback(req, res) {
   const { content, client_id } = req.body;
   try {
@@ -356,12 +361,115 @@ async function createFeedback(req, res) {
       client_id,
     });
     res.status(201).json(newFeedback);
+    
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 }
 
+async function removeFeedback(req, res) {
+  const { idfeedback } = req.params;
+
+  try {
+    const deleted = await Feedback.destroy({
+      where: { idfeedback: idfeedback }, // Make sure the field name matches your model
+    });
+
+    if (deleted) {
+      res.json({ message: 'Feedback deleted successfully' });
+    } else {
+      res.status(404).json({ message: 'Feedback not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+async function getCarsLength(req, res) {
+  try {
+    const rowCount = await Cars.count();
+    res.json({ rowCount });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+async function getCompanyLength(req, res) {
+  try {
+    const rowCount = await Company.count();
+    res.json({ rowCount });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+async function getClientLength(req, res) {
+  try {
+    const rowCount = await User.count(
+      {where: { role: "client" }}
+    );
+    res.json({ rowCount });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+async function getFeedbackLength(req, res) {
+  try {
+    const rowCount = await Feedback.count();
+    res.json({ rowCount });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+// async function getcarsLength(req, res) {
+
+//   try {
+//     const { idcompany } = req.params;
+//     const rowCount = await Cars.count(
+//       {where: { idcompany:idcompany }}
+//     );
+//     res.json({ rowCount });
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// }
+
+async function getcarsLength(req, res) {
+  try {
+    const { company_id } = req.params;
+
+    // Ensure company_id is a valid integer
+    if (isNaN(company_id)) {
+      return res.status(400).json({ error: 'Invalid company_id provided' });
+    }
+
+    const company_idValue = parseInt(company_id, 10);
+
+    const rowCount = await Cars.count({
+      where: { company_idcompany: company_idValue },
+    });
+
+    res.json({ rowCount });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
+
+
+
+
+
 module.exports = {
+ 
+  getcarsLength,
+  getFeedbackLength,
+  getCompanyLength,
+  getClientLength,
+  getCarsLength,
+  removeFeedback,
   searchByName,
   getAllUsers,
   getUserById,
@@ -375,5 +483,5 @@ module.exports = {
   acceptReservation,
   reserveVehicle,
   getAllFeedBack,
-  createFeedback,
+  createFeedback
 };

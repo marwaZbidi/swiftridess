@@ -64,13 +64,11 @@ useEffect(() => {
 
     useEffect(()=>{
       axios.get(`http://localhost:3000/api/chats/user/${userId}/company/${companyId}`).then(res=>{
-          const chatData = res.data.map(item => item.content);
-          setChat(chatData);
+          
+          setChat(res.data);
         })
         .catch(error => console.error(error));
     },[])
-    console.log("message",chat);
-    
   return (
     <div className={style.chat_div}>
       <div className={style.chat_border}>
@@ -93,7 +91,12 @@ useEffect(() => {
                 className={style.chatProfileSpan}
                 style={{ textAlign: client_id == userId ? "right" : "left" }}
               >
-                {/* {client_id.image_user} */}
+                 {!userId?"":<img
+                        src="https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg"
+                        className="w-full h-full rounded-full"
+                        alt="Profile"
+                        
+                    />}
               </span>
               <h3 style={{ textAlign: client_id == userId ? "right" : "left" }}>
                 {content}

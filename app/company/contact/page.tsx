@@ -99,9 +99,9 @@ console.log("aaaaa",selectedUserId);
                     </div>
                 ))
             }
-            <Modal open={modalOpen} onClose={() => setModalOpen(false)} center>
+              <div className="fixed bottom-10 right-10">
                 {selectedUserId && <Home user={selectedUserId}  idRoom={oneChat[0]?oneChat[0].roomId:""}/>}
-            </Modal>
+                </div>
         </div>
     );
 }
